@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Autocomplete</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#f3f4f6;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+width:350px;
+}
+
+h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+/* Search Box */
+
+.search-box{
+position:relative;
+}
+
+input{
+width:100%;
+padding:10px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:14px;
+}
+
+/* Suggestions */
+
+.suggestions{
+position:absolute;
+top:100%;
+left:0;
+width:100%;
+background:white;
+border:1px solid #ddd;
+border-top:none;
+border-radius:0 0 6px 6px;
+max-height:150px;
+overflow-y:auto;
+}
+
+.suggestions div{
+padding:10px;
+cursor:pointer;
+}
+
+.suggestions div:hover{
+background:#f0f0f0;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Search</h2>
+
+<div class="search-box">
+
+<input type="text" id="search" placeholder="Search products...">
+
+<div class="suggestions" id="suggestions"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const items=[
+"Laptop",
+"Smartphone",
+"Headphones",
+"Keyboard",
+"Mouse",
+"Smartwatch",
+"Tablet",
+"Camera",
+"Sneakers",
+"Jacket"
+];
+
+const search=document.getElementById("search");
+const suggestions=document.getElementById("suggestions");
+
+search.addEventListener("keyup",function(){
+
+const value=search.value.toLowerCase();
+suggestions.innerHTML="";
+
+if(value==="") return;
+
+const filtered=items.filter(item =>
+item.toLowerCase().includes(value)
+);
+
+filtered.forEach(item=>{
+
+const div=document.createElement("div");
+div.innerText=item;
+
+div.onclick=function(){
+search.value=item;
+suggestions.innerHTML="";
+}
+
+suggestions.appendChild(div);
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
